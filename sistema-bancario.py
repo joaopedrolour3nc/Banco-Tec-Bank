@@ -21,7 +21,7 @@ while True:
         valor_int = valor
         if valor_int > 0:
             saldo += valor_int
-            print(f'Seu saldo atual é de {saldo}')
+            print(f'Seu saldo atual é de R${saldo:.2f}')
         else:
             print('Valor inválido')
     elif opcao == "S" or opcao == "s":
@@ -30,7 +30,7 @@ while True:
             print ('Saque realizado com sucesso')
             saldo -= saque
             numero_saques += 1
-            print(f'Segue seu saldo atualiado: {saldo}')
+            print(f'Segue seu saldo atualiado: R${saldo:.2f}')
             print(f'Você fez {numero_saques} saques')
         elif saldo < saque:
             print('Saldo insuficiente')
@@ -39,11 +39,11 @@ while True:
         else:
             print('Valor de saque inválido')
     elif opcao == 'E' or opcao == 'e':
-        print(f'Seu saldo é de {saldo}')
+        extrato = saldo
+        print(f'Seu saldo é de R${extrato:.2f}')
         print(f'Sua quantidade de Saques é de {numero_saques}')
-        print(f'Seu limite de saque é de {limite}')
+        print(f'Seu limite de saque é de R${limite:.2f}')
     elif opcao == 'Q' or opcao == 'q':
         break
     else:
-        print('Opção inválida')
-
+        print('Opção inválida, por favor, selecione uma das opções listadas no menu')
