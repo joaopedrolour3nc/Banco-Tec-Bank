@@ -1,54 +1,45 @@
-menu = '''
-    Seja Bem vindo ao TecBank
-    [D] para Depositar
-    [S] para Sacar
-    [E] para Estrato da Conta
-    [Q] para Sair
-'''
 saldo = 0
-limite = 500
-extrato = ''
-numero_saques = 0
-LIMITE_SAQUES = 3
-
-
+lista_depositos = []
+def extrato():
+    global saldo
+    print('Exibindo extrato...')
+    print(f"Saldo atual: {saldo}")
+    print("Depósitos realizados:")
+    for deposito in lista_depositos:
+        print(f" - {deposito}")
+    if not lista_depositos:
+        print("Nenhum depósito realizado ainda.")
+def deposito():
+    global saldo
+    valor1 = input('Digite o valor do depósito: ')
+    try:
+        valor1_float = float(valor1)
+        print(f'Depósito de {valor1_float} realizado com sucesso!')
+        saldo += valor1_float
+        lista_depositos.append(valor1_float)
+    except ValueError:
+        print('Valor inválido. Por favor, digite um número válido.')
+def saque():
+    global saldo
+    valor_saque = input('Digite o valor do saque: ')
+    try:
+        valor_saque_float = float(valor_saque)
+        if valor_saque_float > saldo:
+            print('Saldo insuficiente para saque.')
+        else:
+            print(f'Saque de {valor_saque_float} realizado com sucesso!')
+            saldo -= valor_saque_float
+    except ValueError:
+        print('Valor inválido. Por favor, digite um número válido.')
 while True:
-   
-    opcao = input(menu)
+    entrada = input('Digite o que deseja fazer: 1- Extrato, 2-Deposito e 3-Saque: ')
 
-    if opcao == 'D' or opcao == 'd':
-        valor = int(input('Digite o valor para Depósito: '))
-        if valor > 0:
-            saldo += valor
-            print(f'Seu saldo atual é de R${saldo:.2f}')
-            extrato += f'Depósito: R$ {valor:.2f}\n'
-        else:
-            print('Valor inválido')
-    elif opcao == "S" or opcao == "s":
-        saque = int(input('Digite o valor que deseja sacar:'))
-        if saque <= saldo and numero_saques < LIMITE_SAQUES and saque < limite:
-            print ('Saque realizado com sucesso')
-            print(f'\nSaque: R${valor:.2f}')
-            saldo -= saque
-            numero_saques += 1
-            print(f'Você fez {numero_saques} saques')
-            extrato += f'Saque: R$ {saque:.2f}\n'
-            print(f'Segue seu saldo atualiado: R${saldo:.2f}')
-        elif saldo < saque:
-            print('Saldo insuficiente')
-        elif numero_saques >= LIMITE_SAQUES:
-            print('Limite de saques diários atingido')
-        else:
-            print('Valor de saque inválido')
-    elif opcao == 'E' or opcao == 'e':
-        print('================ EXTRATO ==============')
-        print('Não foram realizadas movimentações.' if not extrato else extrato)
-        print(f'\nSaldo: R${saldo:.2f}')
-        # print(f'Seu saldo é de R${saldo:.2f}')
-        print(f'Sua quantidade de Saques é de {numero_saques}')
-        print(f'Seu limite de saque é de R${limite:.2f}')
-        print('======================================')
-    elif opcao == 'Q' or opcao == 'q':
-        break
+    if entrada == '1':
+        extrato()
+    elif entrada == '2':
+        deposito()
+    elif entrada == '3':
+        saque()
     else:
-        print('Opção inválida, por favor, selecione uma das opções listadas no menu')
+        print('Operação inválida, tente novamente')
+        continue
